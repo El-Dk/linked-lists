@@ -13,4 +13,8 @@ puts "Node at #{index}: #{lista.at(index)}"
 puts "POP: #{lista.pop}"
 puts "POP: #{lista.pop}"
 lista.show_list
-
+p lista.contains?(1)
+p lista.contains?(20)
+puts "Find(10): #{lista.find(1)}"
+puts "Find(20): #{lista.find(3)}"
+lista.to_s

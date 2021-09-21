@@ -80,4 +80,42 @@ class LinkedList
     @tail.next_node = nil
     node.value
   end
+
+  def contains?(value)
+    contains = false
+    node = @head
+    until(node.nil?)
+      if(value == node.value)
+        contains = true
+        break
+      end
+      node = node.next_node
+    end
+    contains
+  end
+
+  def find(value)
+    contains = false
+    index = 0
+    node = @head
+    until(node.nil?)
+      if(value == node.value)
+        contains = true
+        break
+      end
+      node = node.next_node
+      index += 1
+    end
+  return index if(contains)
+  nil
+  end
+
+  def to_s
+    node = @head
+    until(node.nil?)
+      print "( #{node.value} ) -> "
+      node = node.next_node
+    end
+    puts 'nil'
+  end
 end
