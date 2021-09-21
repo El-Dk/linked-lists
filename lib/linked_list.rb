@@ -52,7 +52,7 @@ class LinkedList
   end
 
   def at(index)
-    index = index.abs - 1 if(index < 0)
+    index = @size - index.abs if(index < 0)
       
     return nil if(index >= @size)
     
@@ -72,12 +72,14 @@ class LinkedList
     if(node.next_node.nil?)
       @head = nil
       @tail = nil
+      @size -= 1
       return node.value
     end
     node = node.next_node until(node.next_node.next_node.nil?)
     @tail = node
     node = node.next_node
     @tail.next_node = nil
+    @size -= 1
     node.value
   end
 
@@ -117,5 +119,63 @@ class LinkedList
       node = node.next_node
     end
     puts 'nil'
+  end
+
+  def insert_at(value, index)
+    index = @size - index.abs if(index < 0)
+      
+    return nil if(index > @size)
+    
+    new_node = Node.new(value)
+    if(index == 0)
+      new_node.next_node = @head
+      @head = new_node
+      @tail = new_node
+      @size += 1
+      return new_node
+    end
+
+    if(index == @size)
+      @tail.next_node = new_node
+      @tail = new_node
+      @size += 1
+      return new_node
+    end
+
+    current_index = 0
+    node = @head
+    while(current_index < index -1)
+      current_index += 1
+      node = node.next_node
+    end
+    @size += 1
+    new_node.next_node = node.next_node
+    node.next_node = new_node
+  end
+  
+  def remove_at(index)
+    index = @size - index.abs if(index < 0)
+      
+    return nil if(index >= @size)
+    
+    
+    if(index == 0)
+      node = @head
+      @head = @head.next_node
+      @tail = nil if(@head.nil?)
+      @size -= 1
+      return node.value
+    end
+
+    current_index = 0
+    current_node = @head
+    while(current_index < index -1)
+      current_index += 1
+      current_node = current_node.next_node
+    end
+    @size -= 1
+    node = current_node.next_node
+    current_node.next_node = node.next_node
+    node.value
   end
 end
