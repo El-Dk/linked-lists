@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require './lib/node'
 
 # LinkedList class definition
 class LinkedList
   def initialize
-    @head, @tail = nil, nil
+    @head = nil
+    @tail = nil
     @size = 0
   end
 
@@ -12,11 +15,10 @@ class LinkedList
     @size += 1
     if @head.nil?
       @head = new_node
-      @tail = new_node
     else
       @tail.next_node = new_node
-      @tail = new_node
     end
+    @tail = new_node
   end
 
   def prepend(value)
@@ -33,7 +35,7 @@ class LinkedList
 
   def show_list
     a = @head
-    until(a.nil?)
+    until a.nil?
       puts a.value
       a = a.next_node
     end
@@ -42,23 +44,23 @@ class LinkedList
   def size
     @size
   end
-  
+
   def head
     @head.value
   end
-  
+
   def tail
     @tail.value
   end
 
   def at(index)
-    index = @size - index.abs if(index < 0)
-      
-    return nil if(index >= @size)
-    
+    index = @size - index.abs if index.negative?
+
+    return nil if index >= @size
+
     current_index = 0
     node = @head
-    until(current_index == index)
+    until current_index == index
       current_index += 1
       node = node.next_node
     end
@@ -66,16 +68,16 @@ class LinkedList
   end
 
   def pop
-    return nil if(@head.nil?)
-    
+    return nil if @head.nil?
+
     node = @head
-    if(node.next_node.nil?)
+    if node.next_node.nil?
       @head = nil
       @tail = nil
       @size -= 1
       return node.value
     end
-    node = node.next_node until(node.next_node.next_node.nil?)
+    node = node.next_node until node.next_node.next_node.nil?
     @tail = node
     node = node.next_node
     @tail.next_node = nil
@@ -86,8 +88,8 @@ class LinkedList
   def contains?(value)
     contains = false
     node = @head
-    until(node.nil?)
-      if(value == node.value)
+    until node.nil?
+      if value == node.value
         contains = true
         break
       end
@@ -100,21 +102,22 @@ class LinkedList
     contains = false
     index = 0
     node = @head
-    until(node.nil?)
-      if(value == node.value)
+    until node.nil?
+      if value == node.value
         contains = true
         break
       end
       node = node.next_node
       index += 1
     end
-  return index if(contains)
-  nil
+    return index if contains
+
+    nil
   end
 
   def to_s
     node = @head
-    until(node.nil?)
+    until node.nil?
       print "( #{node.value} ) -> "
       node = node.next_node
     end
@@ -122,12 +125,12 @@ class LinkedList
   end
 
   def insert_at(value, index)
-    index = @size - index.abs if(index < 0)
-      
-    return nil if(index > @size)
-    
+    index = @size - index.abs if index.negative?
+
+    return nil if index > @size
+
     new_node = Node.new(value)
-    if(index == 0)
+    if index.zero?
       new_node.next_node = @head
       @head = new_node
       @tail = new_node
@@ -135,7 +138,7 @@ class LinkedList
       return new_node
     end
 
-    if(index == @size)
+    if index == @size
       @tail.next_node = new_node
       @tail = new_node
       @size += 1
@@ -144,7 +147,7 @@ class LinkedList
 
     current_index = 0
     node = @head
-    while(current_index < index -1)
+    while current_index < index - 1
       current_index += 1
       node = node.next_node
     end
@@ -152,24 +155,23 @@ class LinkedList
     new_node.next_node = node.next_node
     node.next_node = new_node
   end
-  
+
   def remove_at(index)
-    index = @size - index.abs if(index < 0)
-      
-    return nil if(index >= @size)
-    
-    
-    if(index == 0)
+    index = @size - index.abs if index.negative?
+
+    return nil if index >= @size
+
+    if index.zero?
       node = @head
       @head = @head.next_node
-      @tail = nil if(@head.nil?)
+      @tail = nil if @head.nil?
       @size -= 1
       return node.value
     end
 
     current_index = 0
     current_node = @head
-    while(current_index < index -1)
+    while current_index < index - 1
       current_index += 1
       current_node = current_node.next_node
     end

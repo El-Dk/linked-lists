@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/linked_list'
 c = []
 20.times { |i| c << i + 1 }
@@ -33,3 +35,5 @@ lista.remove_at(10)
 lista.to_s
 lista.remove_at(-5)
 lista.to_s
+
+lista.to_s until lista.remove_at(0).nil?
