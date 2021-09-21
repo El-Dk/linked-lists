@@ -1,6 +1,6 @@
 
-                                                                -------------------------
-                                                                  Project: Linked Lists
-                                                                -------------------------
+                                                        -------------------------
+                                                          Project: Linked Lists
+                                                        -------------------------
                                                                 
 Linked Lists in Ruby
